@@ -1,0 +1,7 @@
+{
+  "name": "Asis_Duoc",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
