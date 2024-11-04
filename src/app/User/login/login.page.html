@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-title>Iniciar Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form (ngSubmit)="login()">
+    <!-- Campo de usuario -->
+    <ion-item class="ion-margin-vertical">
+      <ion-input [(ngModel)]="username" name="username" required type="text" label="Correo"
+        labelPlacement="floating"></ion-input>
+    </ion-item>
+
+    <!-- Campo de contraseña con icono para mostrar/ocultar -->
+    <ion-item class="ion-margin-vertical">
+      <ion-input [type]="passwordType" [(ngModel)]="password" name="password" required label="Contraseña"
+        labelPlacement="floating"></ion-input>
+      <ion-icon slot="end" [name]="passwordIcon" (click)="togglePasswordVisibility()"></ion-icon>
+    </ion-item>
+
+    <!-- Botón para iniciar sesión -->
+    <ion-button expand="block" type="submit" class="ion-margin-top" color="warning">Iniciar Sesión</ion-button>
+  </form>
+
+  <!-- Botón para ir a la página de registro -->
+  <ion-button expand="block" fill="clear" color="dark" (click)="goToSignUp()" style="font-size: 10px;">
+    Registrarse
+  </ion-button>
+</ion-content>

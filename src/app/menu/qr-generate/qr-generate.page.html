@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="clases-a-cargo"></ion-back-button>
+    </ion-buttons>
+    <ion-title>QR de la clase</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding" style="text-align: center;">
+
+  <h1>{{nombre}}</h1>
+  <p>{{siglas}} - {{seccion}}</p>
+
+    <qr-code value="{{siglas}} - {{seccion}}"
+         size="300"  />
+  
+</ion-content>

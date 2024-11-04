@@ -1,20 +1,81 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="warning">
     <ion-title>
-      Blank
+      Inicio
     </ion-title>
+    <ion-buttons slot="end" *ngIf="isLoggedIn">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+        Cerrar sesión
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div *ngIf="isLoggedIn; else loginPrompt">
+    <div>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="2"></ion-col>
+          <ion-col size="8">
+            <img src="../assets/Logo_DuocUC.png" alt="qr">
+          </ion-col>
+          <ion-col size="2"></ion-col>
+        </ion-row>
+      </ion-grid>
+      
+      <h1 style="text-align: center;">Bienvenido, {{ username }}!</h1>
+      <p style="text-align: center;">¿Qué deseas hacer hoy?</p>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="1"></ion-col>
+          <ion-col size="10">
+            <!-- Mostrar solo este botón si el usuario es profesor -->
+            <ion-button *ngIf="isProfessor" [routerLink]="['/clases-a-cargo']" color="warning" expand="block" size="large">
+              <ion-icon slot="start" name="briefcase-outline"></ion-icon>
+              Clases a Cargo
+            </ion-button>
+
+            <!-- Mostrar estos botones solo si el usuario NO es profesor (es decir, es un estudiante) -->
+            <ng-container *ngIf="!isProfessor">
+              <ion-button [routerLink]="['/qr-scan']" color="warning" expand="block" size="large">
+                <ion-icon slot="start" name="qr-code-outline"></ion-icon>
+                Registrar Asistencia
+              </ion-button>
+              <br>
+              <ion-button [routerLink]="['/asignaturas']" color="warning" expand="block" size="large">
+                <ion-icon slot="start" name="calendar-outline"></ion-icon>
+                Mis Asignaturas
+              </ion-button>
+              <br>
+              <ion-button [routerLink]="['/asistencias']" color="warning" expand="block" size="large">
+                <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+                Mis Asistencias
+              </ion-button>
+              <br>
+              <ion-button [routerLink]="['/cambiar-clave']" color="warning" expand="block" size="large">
+                <ion-icon slot="start" name="key-outline"></ion-icon>
+                Cambiar Clave
+              </ion-button>
+            </ng-container>
+          </ion-col>
+          <ion-col size="1"></ion-col>
+        </ion-row>
+      </ion-grid>
+      
+    </div>
   </div>
+
+  <ng-template #loginPrompt>
+    <div class="login-prompt">
+      <h2>Bienvenido a RegistrAPP</h2>
+      <p>Por favor, inicia sesión para acceder a tus opciones.</p>
+      <ion-button expand="block" routerLink="/login" color="warning">
+        <ion-icon name="log-in-outline" slot="start"></ion-icon>
+        Iniciar Sesión
+      </ion-button>
+    </div>
+  </ng-template>
 </ion-content>

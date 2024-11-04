@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis Clases</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div>
+  <ion-accordion-group>
+    <ion-accordion *ngFor="let clase of clases" expand="true">
+      <ion-item slot="header">
+        <ion-label>{{clase.subject}} - {{clase.section}}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content" style="text-align: center; ">
+        <ion-button color="warning" expand="full" [routerLink]="['../qr-generate',clase.id]">
+          <ion-icon slot="icon-only" name="qr-code-outline"></ion-icon>.
+          Obtener qr de la clase
+        </ion-button>
+
+
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</div>

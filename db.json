@@ -1,0 +1,91 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Profesor1",
+      "email": "profesor1@example.com",
+      "password": "password123",
+      "role": "profesor",
+      "classes": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Alumno1",
+      "email": "alumno1@example.com",
+      "password": "lollollol",
+      "role": "alumno",
+      "classes": [
+        "1",
+        "3"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Alumno2",
+      "email": "alumno2@example.com",
+      "password": "password789",
+      "role": "alumno",
+      "classes": [
+        "2"
+      ]
+    }
+  ],
+  "classes": [
+    {
+      "id": "1",
+      "name": "Matemáticas Básicas",
+      "subject": "MAT1234",
+      "section": "001D",
+      "day": "Lunes",
+      "startTime": "09:00",
+      "endTime": "10:30",
+      "professorId": "1",
+      "qrCode": "QR_CODE_123"
+    },
+    {
+      "id": "2",
+      "name": "Historia Universal",
+      "subject": "HSU1341",
+      "section": "002D",
+      "day": "Martes",
+      "startTime": "11:00",
+      "endTime": "12:30",
+      "professorId": "1",
+      "qrCode": "QR_CODE_456"
+    },
+    {
+      "id": "3",
+      "name": "Introducción a la Física",
+      "subject": "CFI2424",
+      "section": "001D",
+      "day": "Jueves",
+      "startTime": "12:00",
+      "endTime": "12:30",
+      "professorId": "1",
+      "qrCode": "QR_CODE_789"
+    }
+  ],
+  "attendance": [
+    {
+      "id": "1",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2023-10-30T09:00:00Z"
+    },
+    {
+      "id": "2",
+      "classId": "1",
+      "studentId": "3",
+      "timestamp": "2023-10-30T09:02:00Z"
+    },
+    {
+      "id": "3",
+      "classId": "2",
+      "studentId": "2",
+      "timestamp": "2023-10-31T10:30:00Z"
+    }
+  ]
+}

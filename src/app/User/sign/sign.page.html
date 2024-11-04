@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-title>Registrarse</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goHome()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form (ngSubmit)="signUp()">
+    <ion-item class="ion-margin-vertical">
+      <ion-input [(ngModel)]="username" name="username" required type="text" label="Correo electrónico"
+        labelPlacement="floating"></ion-input>
+    </ion-item>
+
+    <ion-item class="ion-margin-vertical">
+      <ion-input [type]="passwordType" [(ngModel)]="password" name="password" required label="Contraseña"
+        labelPlacement="floating"></ion-input>
+      <ion-icon slot="end" [name]="passwordIcon" (click)="togglePasswordVisibility()"></ion-icon>
+    </ion-item>
+    <ion-button expand="block" type="submit" class="ion-margin-top" color="warning">Registrarse</ion-button>
+  </form>
+
+  <ion-button expand="block" fill="outline" color="dark" (click)="login()">
+    Iniciar Sesión
+  </ion-button>
+</ion-content>
