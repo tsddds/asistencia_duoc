@@ -8,11 +8,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-list>
-    <ion-item *ngFor="let asistencia of asistencias">
-      <ion-label>Fecha: {{ asistencia.fecha }}</ion-label>
-      <ion-label>Clase: {{ asistencia.subject }}</ion-label>
-      <ion-label>Presente: {{ asistencia.presente ? 'Sí' : 'No' }}</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-accordion-group>
+    <ion-accordion *ngFor="let subject of getSubjects()">
+      <ion-item slot="header" color="light">
+        <ion-label>{{ subject }}</ion-label>
+      </ion-item>
+      <div slot="content">
+        <ion-list>
+          <ion-item *ngFor="let asistencia of asistenciasPorAsignatura[subject]">
+            <ion-label>
+              <h2>Fecha: {{ asistencia.fecha }}</h2>
+              <p>Presente: {{ asistencia.presente ? 'Sí' : 'No' }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>

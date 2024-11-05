@@ -1,7 +1,5 @@
-// Modificación del componente AsistenciasPage
 import { Component, OnInit } from '@angular/core';
 import { AsistenciaService } from '../../services/asistecia.service';
-import { forkJoin } from 'rxjs';
 
 interface Asistencia {
   fecha: string;
@@ -15,25 +13,40 @@ interface Asistencia {
   styleUrls: ['./asistencias.page.scss'],
 })
 export class AsistenciasPage implements OnInit {
-  asistencias: Asistencia[] = [];
+  asistenciasPorAsignatura: { [key: string]: Asistencia[] } = {}; // Asistencias agrupadas por asignatura
 
   constructor(private asistenciaService: AsistenciaService) {}
 
   ngOnInit() {
-    // Utilizar forkJoin para obtener las clases y asistencias del estudiante logueado simultáneamente
-    forkJoin({
-      classes: this.asistenciaService.getClasses(),
-      attendanceData: this.asistenciaService.getAttendance(),
-    }).subscribe(({ classes, attendanceData }) => {
-      // Combinar las asistencias con la información de la clase (subject)
-      this.asistencias = attendanceData.map((att) => {
-        const clase = classes.find((c) => c.id === att.classId);
-        return {
-          fecha: new Date(att.timestamp).toLocaleDateString(),
-          presente: true,
-          subject: clase ? clase.subject : 'Clase desconocida',
-        };
-      });
-    });
+    this.loadAsistencias();
+  }
+
+  // Función para cargar y organizar las asistencias por asignatura
+  loadAsistencias() {
+    this.asistenciaService.getStudentAttendance().subscribe(
+      (asistencias) => {
+        this.organizeAsistencias(asistencias);
+      },
+      (error) => {
+        console.error('Error al cargar las asistencias:', error);
+      }
+    );
+  }
+
+  // Función para organizar las asistencias por asignatura
+  organizeAsistencias(asistencias: Asistencia[]) {
+    this.asistenciasPorAsignatura = asistencias.reduce((acc, asistencia) => {
+      const subject = asistencia.subject;
+      if (!acc[subject]) {
+        acc[subject] = [];
+      }
+      acc[subject].push(asistencia);
+      return acc;
+    }, {} as { [key: string]: Asistencia[] });
+  }
+
+  // Método para obtener las asignaturas
+  getSubjects(): string[] {
+    return Object.keys(this.asistenciasPorAsignatura);
   }
 }
