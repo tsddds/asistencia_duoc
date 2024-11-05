@@ -8,11 +8,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding" color="dark">
-  <div style="text-align: center; ">
+  <div style="text-align: center;">
     <ion-text>
       <h6>Escanea el QR de la clase para marcar tu asistencia</h6>
     </ion-text>
-
     <br><br>
     <ion-grid fixed>
       <ion-row>
@@ -23,24 +22,15 @@
         <ion-col size="2"></ion-col>
       </ion-row>
     </ion-grid>
-
-    
-
     <br><br>
-    <ion-button class="submit" color="warning" (click)="startScan()"> <!---->
-      <ion-icon  slot="end" name="scan-outline"></ion-icon>
+    <ion-button class="submit" color="warning" (click)="startScan()">
+      <ion-icon slot="end" name="scan-outline"></ion-icon>
       Escanear QR
     </ion-button>
-
-
     <ion-item class="result" *ngIf="scanResult" lines="none">
       <ion-label>
-        <p>Se a marcado la asistencia en la clase{{scanResult}}</p>
+        <p>Se ha marcado la asistencia en la clase {{ scanResult }}</p>
       </ion-label>
     </ion-item>
-
-
-
   </div>
-
 </ion-content>

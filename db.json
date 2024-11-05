@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "Profesor1",
-      "email": "profesor1@example.com",
+      "email": "lol",
       "password": "password123",
       "role": "profesor",
       "classes": [
@@ -14,8 +14,8 @@
     {
       "id": "2",
       "name": "Alumno1",
-      "email": "alumno1@example.com",
-      "password": "lollollol",
+      "email": "chao",
+      "password": "1234",
       "role": "alumno",
       "classes": [
         "1",
@@ -77,7 +77,7 @@
     },
     {
       "id": "2",
-      "classId": "1",
+      "classId": "3",
       "studentId": "3",
       "timestamp": "2023-10-30T09:02:00Z"
     },
@@ -86,6 +86,78 @@
       "classId": "2",
       "studentId": "2",
       "timestamp": "2023-10-31T10:30:00Z"
+    },
+    {
+      "id": "408b",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-04T22:22:59.909Z"
+    },
+    {
+      "id": "3871",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-04T22:23:34.448Z"
+    },
+    {
+      "id": "e518",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-04T22:33:05.181Z"
+    },
+    {
+      "id": "04ac",
+      "classId": "2",
+      "studentId": "2",
+      "timestamp": "2024-11-04T22:51:27.544Z"
+    },
+    {
+      "id": "c87e",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-04T22:55:20.652Z"
+    },
+    {
+      "id": "b103",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-04T23:04:07.271Z"
+    },
+    {
+      "id": "96c9",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-04T23:26:15.078Z"
+    },
+    {
+      "id": "8cb3",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-04T23:26:31.014Z"
+    },
+    {
+      "id": "d147",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-04T23:26:45.182Z"
+    },
+    {
+      "id": "970b",
+      "classId": "2",
+      "studentId": "2",
+      "timestamp": "2024-11-04T23:27:14.417Z"
+    },
+    {
+      "id": "7dc0",
+      "classId": "2",
+      "studentId": "2",
+      "timestamp": "2024-11-04T23:27:59.610Z"
+    },
+    {
+      "id": "dc76",
+      "classId": "2",
+      "studentId": "2",
+      "timestamp": "2024-11-04T23:28:16.865Z"
     }
   ]
 }

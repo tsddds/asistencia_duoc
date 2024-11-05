@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true"  class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding">
   <br><br>
   <ion-list>
     <ion-item color="warning">
@@ -15,11 +15,10 @@
       <ion-label>Sección</ion-label>
       <ion-label>Nombre</ion-label>
     </ion-item>
-      <ion-item *ngFor="let asignatura of asignaturas">
-        <ion-label>{{asignatura.codigo | uppercase }}</ion-label>
-        <ion-label>{{asignatura.seccion | uppercase}}</ion-label> 
-        <ion-label>{{asignatura.nombre | titlecase}}</ion-label> 
-      </ion-item>
-
+    <ion-item *ngFor="let asignatura of asignaturas">
+      <ion-label>{{ asignatura.codigo | uppercase }}</ion-label>
+      <ion-label>{{ asignatura.seccion | uppercase }}</ion-label>
+      <ion-label>{{ asignatura.nombre | titlecase }}</ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>

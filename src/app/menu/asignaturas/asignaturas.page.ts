@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { AsistenciaService } from '../../services/asistecia.service';
+
+interface Asignatura {
+  id: string;
+  nombre: string;
+  codigo: string;
+  seccion: string;
+}
 
 @Component({
   selector: 'app-asignaturas',
@@ -6,20 +14,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./asignaturas.page.scss'],
 })
 export class AsignaturasPage implements OnInit {
-  asignaturas = [
-    {codigo: "PGY4121", seccion: "001D", nombre: "matematicas"},
-    {codigo: "PGY2121", seccion: "003D", nombre: "lenguaje"},
-    {codigo: "mdy3101", seccion: "001D", nombre: "historia"},
-    {codigo: "ghj9234", seccion: "004D", nombre: "quimica"},
-    {codigo: "dwd4636", seccion: "001D", nombre: "fisica"},
-    {codigo: "frt1233", seccion: "002D", nombre: "biologia"},
-    {codigo: "fse4234", seccion: "002D", nombre: "artes"},
-    {codigo: "ffd3123", seccion: "001D", nombre: "filosofia"},
-  ]
+  asignaturas: Asignatura[] = [];
 
-  constructor() { }
+  constructor(private asistenciaService: AsistenciaService) {}
 
   ngOnInit() {
+    this.cargarAsignaturas();
   }
 
+  cargarAsignaturas() {
+    this.asistenciaService.getClasses().subscribe(
+      (data) => {
+        if (data && data.length > 0) {
+          this.asignaturas = data.map((cl) => ({
+            id: cl.id,
+            nombre: cl.name,
+            codigo: cl.subject,
+            seccion: cl.section,
+          }));
+        } else {
+          console.error('No se encontraron asignaturas.');
+        }
+      },
+      (error) => {
+        console.error('Error al cargar asignaturas:', error);
+      }
+    );
+  }
 }
