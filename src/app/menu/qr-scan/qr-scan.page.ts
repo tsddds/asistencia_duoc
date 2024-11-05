@@ -15,7 +15,7 @@ export class QrScanPage implements OnInit {
   scanResult = "";
   studentId: string = '2'; // Reemplaza esto con la obtención del ID del estudiante autenticado
 
-  private apiUrl = 'http://192.168.1.110:3000'; // Asegúrate de que esta URL sea correcta
+  private apiUrl = 'http://192.168.4.164:3000'; // Asegúrate de que esta URL sea correcta
 
   constructor(
     private modalController: ModalController,

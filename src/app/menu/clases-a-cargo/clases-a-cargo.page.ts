@@ -10,7 +10,7 @@ import { of } from 'rxjs';
   styleUrls: ['./clases-a-cargo.page.scss'],
 })
 export class ClasesACargoPage implements OnInit {
-  private apiUrl = 'http://192.168.1.110:3000/classes';
+  private apiUrl = 'http://192.168.4.164:3000/classes';
   clases: any = [];
 
   constructor(private http: HttpClient, private router: Router) { }

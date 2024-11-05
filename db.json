@@ -170,6 +170,12 @@
       "classId": "3",
       "studentId": "2",
       "timestamp": "2024-11-05T19:54:47.926Z"
+    },
+    {
+      "id": "5c54",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-05T20:20:50.929Z"
     }
   ]
 }
