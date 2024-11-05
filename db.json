@@ -15,7 +15,7 @@
       "id": "2",
       "name": "Alumno1",
       "email": "chao",
-      "password": "1234",
+      "password": "123",
       "role": "alumno",
       "classes": [
         "1",
@@ -158,6 +158,18 @@
       "classId": "2",
       "studentId": "2",
       "timestamp": "2024-11-04T23:28:16.865Z"
+    },
+    {
+      "id": "edd2",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-05T19:53:38.208Z"
+    },
+    {
+      "id": "7018",
+      "classId": "3",
+      "studentId": "2",
+      "timestamp": "2024-11-05T19:54:47.926Z"
     }
   ]
 }
