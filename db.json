@@ -8,7 +8,8 @@
       "role": "profesor",
       "classes": [
         "1",
-        "2"
+        "2",
+        "3"
       ]
     },
     {
@@ -64,7 +65,7 @@
       "day": "Jueves",
       "startTime": "12:00",
       "endTime": "12:30",
-      "professorId": "2",
+      "professorId": "1",
       "qrCode": "QR_CODE_789"
     }
   ],
@@ -74,6 +75,18 @@
       "classId": "1",
       "studentId": "2",
       "timestamp": "2024-11-07T14:16:31.002Z"
+    },
+    {
+      "id": "9e29",
+      "classId": "3",
+      "studentId": "2",
+      "timestamp": "2024-11-07T21:29:50.333Z"
+    },
+    {
+      "id": "a953",
+      "classId": "3",
+      "studentId": "2",
+      "timestamp": "2024-11-07T21:29:58.571Z"
     }
   ]
 }

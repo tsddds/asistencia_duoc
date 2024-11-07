@@ -59,31 +59,67 @@ export class QrScanPage implements OnInit {
     const [siglas, seccion] = this.scanResult.split(' - ');
 
     this.asistenciaService.getClasses().subscribe(classes => {
-      const classFound = classes.find(cl => cl.subject === siglas && cl.section === seccion);
-      if (classFound) {
-        const classId = classFound.id;
-        const attendanceRecord = {
-          id: this.generateId(),
-          classId: classId,
-          studentId: this.studentId,
-          timestamp: new Date().toISOString()
-        };
-        this.saveAttendance(attendanceRecord).subscribe(
-          response => {
-            this.message = `Se ha marcado la asistencia en la clase ${this.scanResult}`;
-            console.log('Asistencia guardada', response);
-          },
-          error => {
-            this.message = 'Error al guardar la asistencia';
-            console.error('Error al guardar la asistencia', error);
-          }
-        );
-      } else {
-        this.message = 'El usuario no está registrado en esta clase';
-        console.error('El usuario no está registrado en esta clase');
-      }
+        const classFound = classes.find(cl => cl.subject === siglas && cl.section === seccion);
+        if (classFound) {
+            const classId = classFound.id;
+
+            // Verificar si ya se registró asistencia hoy para esta clase específica
+            this.http.get<any[]>(`${this.apiUrl}/attendance`).subscribe(allAttendance => {
+                try {
+                    // Obtener la fecha actual en UTC
+                    const today = new Date();
+                    const todayStr = today.getUTCFullYear() + '-' + 
+                                   String(today.getUTCMonth() + 1).padStart(2, '0') + '-' + 
+                                   String(today.getUTCDate()).padStart(2, '0');
+
+                    // Filtrar asistencias por estudiante, clase y fecha
+                    const alreadyRegistered = allAttendance.some(record => {
+                        // Verificar si el registro corresponde al estudiante y clase actual
+                        if (record.studentId === this.studentId && record.classId === classId) {
+                            // Convertir el timestamp del registro a fecha UTC
+                            const recordDate = new Date(record.timestamp);
+                            const recordDateStr = recordDate.getUTCFullYear() + '-' + 
+                                                String(recordDate.getUTCMonth() + 1).padStart(2, '0') + '-' + 
+                                                String(recordDate.getUTCDate()).padStart(2, '0');
+                            
+                            return recordDateStr === todayStr;
+                        }
+                        return false;
+                    });
+
+                    if (alreadyRegistered) {
+                        this.message = 'Ya has registrado tu asistencia para hoy en esta clase.';
+                        return;
+                    }
+
+                    const attendanceRecord = {
+                        id: this.generateId(),
+                        classId: classId,
+                        studentId: this.studentId,
+                        timestamp: new Date().toISOString()
+                    };
+
+                    this.saveAttendance(attendanceRecord).subscribe(
+                        response => {
+                            this.message = `Se ha marcado la asistencia en la clase ${this.scanResult}`;
+                            console.log('Asistencia guardada', response);
+                        },
+                        error => {
+                            this.message = 'Error al guardar la asistencia';
+                            console.error('Error al guardar la asistencia', error);
+                        }
+                    );
+                } catch (error) {
+                    console.error('Error procesando fechas:', error);
+                    this.message = 'Error al procesar las fechas';
+                }
+            });
+        } else {
+            this.message = 'El usuario no está registrado en esta clase';
+            console.error('El usuario no está registrado en esta clase');
+        }
     });
-  }
+}
 
   saveAttendance(attendanceRecord: any) {
     const url = `${this.apiUrl}/attendance`;
