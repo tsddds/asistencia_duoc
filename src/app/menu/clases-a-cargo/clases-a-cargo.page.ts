@@ -22,15 +22,23 @@ export class ClasesACargoPage implements OnInit {
   }
 
   getAsignaturasACargo() {
-    return this.http.get(this.apiUrl).pipe(
-      map(res => {
-        return res; // Solo devuelve res para verificar su contenido
+    const userSession = JSON.parse(localStorage.getItem('userSession') || '{}');
+    const professorId = userSession?.id;
+
+    if (!professorId) {
+      console.error('No se ha encontrado el ID del profesor en localStorage.');
+      return of([]);
+    }
+
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      map(classes => {
+        // Filtrar las clases que corresponden al profesor
+        return classes.filter(cl => cl.professorId === professorId);
       }),
       catchError(error => {
         console.error('Error fetching classes', error);
-        return of([]); // Devuelve un arreglo vacío en caso de error
+        return of([]);
       })
     );
   }
- 
 }
