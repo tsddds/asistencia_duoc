@@ -15,7 +15,7 @@ interface User {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://192.168.4.164:3000/users'; // URL de la API REST
+  private apiUrl = 'http://192.168.1.110:3000/users'; // URL de la API REST
   private sessionKey = 'userSession'; // Clave para almacenar el usuario en localStorage
 
   constructor(private http: HttpClient) {}

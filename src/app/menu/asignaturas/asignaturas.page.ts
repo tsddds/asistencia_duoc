@@ -15,6 +15,7 @@ interface Asignatura {
 })
 export class AsignaturasPage implements OnInit {
   asignaturas: Asignatura[] = [];
+  private apiUrl = 'http://192.168.1.110'; // Asegúrate de que esta URL sea correcta
 
   constructor(private asistenciaService: AsistenciaService) {}
 

@@ -4,6 +4,7 @@ import { BarcodeScanningModalComponent } from './barcode-scanning-modal.componen
 import { LensFacing, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { Platform } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { AsistenciaService } from '../../services/asistecia.service';
 
 @Component({
   selector: 'app-qr-scan',
@@ -13,14 +14,16 @@ import { HttpClient } from '@angular/common/http';
 export class QrScanPage implements OnInit {
 
   scanResult = "";
+  message = "";
   studentId: string = '2'; // Reemplaza esto con la obtención del ID del estudiante autenticado
 
-  private apiUrl = 'http://192.168.4.164:3000'; // Asegúrate de que esta URL sea correcta
+  private apiUrl = 'http://192.168.1.110:3000'; // Asegúrate de que esta URL sea correcta
 
   constructor(
     private modalController: ModalController,
     private platform: Platform,
-    private http: HttpClient
+    private http: HttpClient,
+    private asistenciaService: AsistenciaService
   ) { }
 
   ngOnInit() {
@@ -53,43 +56,33 @@ export class QrScanPage implements OnInit {
   }
 
   processScanResult() {
-    // Extraer siglas y sección del resultado del escaneo
     const [siglas, seccion] = this.scanResult.split(' - ');
 
-    // Obtener la clase correspondiente
-    this.getClassBySubjectAndSection(siglas, seccion).subscribe(
-      (classes) => {
-        if (classes && classes.length > 0) {
-          const classId = classes[0].id;
-          const attendanceRecord = {
-            id: this.generateId(),
-            classId: classId,
-            studentId: this.studentId,
-            timestamp: new Date().toISOString()
-          };
-          // Guardar el registro de asistencia
-          this.saveAttendance(attendanceRecord).subscribe(
-            (response) => {
-              console.log('Asistencia guardada', response);
-              // Puedes mostrar un mensaje de éxito aquí
-            },
-            (error) => {
-              console.error('Error al guardar la asistencia', error);
-            }
-          );
-        } else {
-          console.error('Clase no encontrada para las siglas y sección proporcionadas');
-        }
-      },
-      (error) => {
-        console.error('Error al obtener la clase', error);
+    this.asistenciaService.getClasses().subscribe(classes => {
+      const classFound = classes.find(cl => cl.subject === siglas && cl.section === seccion);
+      if (classFound) {
+        const classId = classFound.id;
+        const attendanceRecord = {
+          id: this.generateId(),
+          classId: classId,
+          studentId: this.studentId,
+          timestamp: new Date().toISOString()
+        };
+        this.saveAttendance(attendanceRecord).subscribe(
+          response => {
+            this.message = `Se ha marcado la asistencia en la clase ${this.scanResult}`;
+            console.log('Asistencia guardada', response);
+          },
+          error => {
+            this.message = 'Error al guardar la asistencia';
+            console.error('Error al guardar la asistencia', error);
+          }
+        );
+      } else {
+        this.message = 'El usuario no está registrado en esta clase';
+        console.error('El usuario no está registrado en esta clase');
       }
-    );
-  }
-
-  getClassBySubjectAndSection(subject: string, section: string) {
-    const url = `${this.apiUrl}/classes?subject=${subject}&section=${section}`;
-    return this.http.get<any[]>(url);
+    });
   }
 
   saveAttendance(attendanceRecord: any) {

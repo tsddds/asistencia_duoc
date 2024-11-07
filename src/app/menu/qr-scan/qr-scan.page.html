@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding" color="dark">
-  <div style="text-align: center; ">
+  <div style="text-align: center;">
     <ion-text>
       <h6>Escanea el QR de la clase para marcar tu asistencia</h6>
     </ion-text>
@@ -30,9 +30,9 @@
       Escanear QR
     </ion-button>
 
-    <ion-item class="result" *ngIf="scanResult" lines="none">
+    <ion-item class="result" *ngIf="message" lines="none">
       <ion-label>
-        <p>Se ha marcado la asistencia en la clase {{ scanResult }}</p>
+        <p>{{ message }}</p>
       </ion-label>
     </ion-item>
   </div>
