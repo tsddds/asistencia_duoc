@@ -7,7 +7,7 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AsistenciaService {
-  private apiUrl = 'http://192.168.1.110:3000'; // URL de la API REST
+  private apiUrl = 'http://192.168.104.19:3000'; // URL de la API REST
   private sessionKey = 'userSession'; // Clave para obtener datos del usuario de localStorage
 
   constructor(private http: HttpClient) {}

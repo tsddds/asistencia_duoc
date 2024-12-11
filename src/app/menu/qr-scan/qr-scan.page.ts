@@ -15,16 +15,18 @@ export class QrScanPage implements OnInit {
 
   scanResult = "";
   message = "";
-  studentId: string = '2'; // Reemplaza esto con la obtención del ID del estudiante autenticado
-
-  private apiUrl = 'http://192.168.1.110:3000'; // Asegúrate de que esta URL sea correcta
+  studentId: string = '';
+  private apiUrl = 'http://192.168.104.19:3000';
 
   constructor(
     private modalController: ModalController,
     private platform: Platform,
     private http: HttpClient,
     private asistenciaService: AsistenciaService
-  ) { }
+  ) {
+    const userSession = JSON.parse(localStorage.getItem('userSession') || '{}');
+    this.studentId = userSession.id || '';
+  }
 
   ngOnInit() {
     if (this.platform.is("capacitor")) {
@@ -32,9 +34,19 @@ export class QrScanPage implements OnInit {
       BarcodeScanner.checkPermissions().then();
       BarcodeScanner.removeAllListeners();
     }
+
+    if (!this.studentId) {
+      this.message = 'Error: No se pudo obtener la información del estudiante';
+      console.error('No se encontró el ID del estudiante en la sesión');
+    }
   }
 
   async startScan() {
+    if (!this.studentId) {
+      this.message = 'Error: Debes iniciar sesión nuevamente';
+      return;
+    }
+
     const modal = await this.modalController.create({
       component: BarcodeScanningModalComponent,
       cssClass: 'barcode-scanning-modal',
@@ -63,20 +75,15 @@ export class QrScanPage implements OnInit {
         if (classFound) {
             const classId = classFound.id;
 
-            // Verificar si ya se registró asistencia hoy para esta clase específica
             this.http.get<any[]>(`${this.apiUrl}/attendance`).subscribe(allAttendance => {
                 try {
-                    // Obtener la fecha actual en UTC
                     const today = new Date();
                     const todayStr = today.getUTCFullYear() + '-' + 
                                    String(today.getUTCMonth() + 1).padStart(2, '0') + '-' + 
                                    String(today.getUTCDate()).padStart(2, '0');
 
-                    // Filtrar asistencias por estudiante, clase y fecha
                     const alreadyRegistered = allAttendance.some(record => {
-                        // Verificar si el registro corresponde al estudiante y clase actual
                         if (record.studentId === this.studentId && record.classId === classId) {
-                            // Convertir el timestamp del registro a fecha UTC
                             const recordDate = new Date(record.timestamp);
                             const recordDateStr = recordDate.getUTCFullYear() + '-' + 
                                                 String(recordDate.getUTCMonth() + 1).padStart(2, '0') + '-' + 

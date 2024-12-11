@@ -13,11 +13,12 @@ interface Asistencia {
   styleUrls: ['./asistencias.page.scss'],
 })
 export class AsistenciasPage implements OnInit {
-  asistenciasPorAsignatura: { [key: string]: Asistencia[] } = {}; // Asistencias agrupadas por asignatura
-
+  asistenciasPorAsignatura: { [key: string]: Asistencia[] } = {}; 
+//'PGY4121': [ { fecha: '2024-03-20', presente: true, subject: 'PGY4121' }]
   constructor(private asistenciaService: AsistenciaService) {}
 
   ngOnInit() {
+    
     this.loadAsistencias();
   }
 
@@ -35,6 +36,7 @@ export class AsistenciasPage implements OnInit {
 
   // Función para organizar las asistencias por asignatura
   organizeAsistencias(asistencias: Asistencia[]) {
+    
     this.asistenciasPorAsignatura = asistencias.reduce((acc, asistencia) => {
       const subject = asistencia.subject;
       if (!acc[subject]) {
@@ -44,6 +46,30 @@ export class AsistenciasPage implements OnInit {
       return acc;
     }, {} as { [key: string]: Asistencia[] });
   }
+/*organizeAsistencias(asistencias: Asistencia[]) {
+  this.asistenciasPorAsignatura = {
+    'TODAS': asistencias
+  };
+}
+  
+// No agrupar correctamente y poner todas las asistencias en un solo grupo
+organizeAsistencias(asistencias: Asistencia[]) {
+  this.asistenciasPorAsignatura = {
+    'PGY4121': asistencias,  
+    'BDD4121': []           
+  };
+}
+
+
+if (asistencias.length === 0) {
+    this.asistenciasPorAsignatura = {
+      'SIN_DATOS': []  // Esto hará que length sea 1 en vez de 0
+    };
+    return;
+  }
+
+*/ 
+
 
   // Método para obtener las asignaturas
   getSubjects(): string[] {

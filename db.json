@@ -16,7 +16,7 @@
       "id": "2",
       "name": "Alumno1",
       "email": "chao",
-      "password": "1234ho",
+      "password": "1234",
       "role": "alumno",
       "classes": [
         "1",
@@ -26,8 +26,8 @@
     {
       "id": "3",
       "name": "Alumno2",
-      "email": "alumno2@example.com",
-      "password": "password789",
+      "email": "alumno",
+      "password": "1234",
       "role": "alumno",
       "classes": [
         "2"
@@ -77,16 +77,16 @@
       "timestamp": "2024-11-07T14:16:31.002Z"
     },
     {
-      "id": "9e29",
-      "classId": "3",
-      "studentId": "2",
-      "timestamp": "2024-11-07T21:29:50.333Z"
-    },
-    {
       "id": "a953",
       "classId": "3",
       "studentId": "2",
       "timestamp": "2024-11-07T21:29:58.571Z"
+    },
+    {
+      "id": "e7e4",
+      "classId": "1",
+      "studentId": "2",
+      "timestamp": "2024-11-28T00:26:57.709Z"
     }
   ]
 }

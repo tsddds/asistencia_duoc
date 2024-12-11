@@ -19,7 +19,7 @@ export class QrGeneratePage implements OnInit {
 
   clases: any = [];
 
-  private apiUrl = 'http://192.168.1.110:3000/classes';
+  private apiUrl = 'http://192.168.104.19:3000/classes';
 
   constructor(private activateRoute:ActivatedRoute, private http:HttpClient) { }
 
